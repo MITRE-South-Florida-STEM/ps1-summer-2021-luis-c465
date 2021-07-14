@@ -1,5 +1,4 @@
 annual_salary = float(input("Enter the starting salary:​ "))
-# annual_salary = 150000
 
 total_cost = 1_000_000
 semi_annual_raise = .07
@@ -32,16 +31,16 @@ low = 0
 high = 10_000
 high_before = high
 # ! Lower this value for a more accurate answer / more bisections !
-# ! Must be positive !
-epsilon = 1
-savings_accuracy = 4 # In numbers after the decimal
+# ! Must be greater than 1 !
+epsilon = 3
 
 while abs(low - high) >= epsilon:
-    guess = (high + low) / 2.0
+    guess = (high + low) // 2
     payment_guess = down_payment(annual_salary, guess / high_before, total_cost, portion_down_payment, r, semi_annual_raise)
 
-    # print(payment_guess)
-    # print(guess, low, high)
+    # print(f"Bisections: {bisections}")
+    # print(f"Payment guess months: {payment_guess}")
+    # print(f"Guess: {guess}\tLow/High: {low}/{high}\n")
 
     if moths < payment_guess: low = guess
     else: high = guess
@@ -51,5 +50,5 @@ while abs(low - high) >= epsilon:
 if high == high_before:
     print(f"It is not possible to pay the down payment in {moths / 12} years.")
 else:
-    print(f"Best savings rate:​ {round(guess / high_before, savings_accuracy)}")
+    print(f"Best savings rate:​ {guess / high_before}")
     print(f"Steps in bisection search:​ {bisections}")
